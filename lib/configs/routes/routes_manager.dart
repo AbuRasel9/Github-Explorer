@@ -1,25 +1,14 @@
-
-import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:github_explorer/configs/routes/routes_name.dart';
+import 'package:github_explorer/presentation/RepoDetailsView/repo_details_view.dart';
+import 'package:github_explorer/presentation/home_view/home.dart';
+import 'package:github_explorer/presentation/searchNameView/search_name_view.dart';
 
-import '../../presentation/home_view/home.dart';
+class RouteManager {
+  static final routes=[
+    GetPage(name: RoutesName.searchNameView, page: () => SearchNameView(),),
+    GetPage(name: RoutesName.home, page: () => HomeView(),),
+    GetPage(name: RoutesName.repoDetails, page: () => RepoDetailsView(),),
+  ];
 
-class Routes {
-  static Route<dynamic> generateRoute(RouteSettings settings) {
-    switch (settings.name) {
-
-      case RoutesName.home:
-        return MaterialPageRoute(
-            builder: (BuildContext context) => const HomeView());
-
-      default:
-        return MaterialPageRoute(builder: (_) {
-          return const Scaffold(
-            body: Center(
-              child: Text('No route defined'),
-            ),
-          );
-        });
-    }
-  }
 }
