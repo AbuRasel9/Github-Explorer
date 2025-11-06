@@ -7,10 +7,10 @@ import '../../configs/utils/service/custom_interceptor.dart';
 import '../exception/app_exception.dart';
 import 'base_api_services.dart';
 
-class DioApiService implements BaseApiServices {
+class NetworkApiService implements BaseApiServices {
   late final Dio _dio;
 
-  DioApiService() {
+  NetworkApiService() {
     _dio = Dio(
       BaseOptions(
         baseUrl: ApiUrl.base,
@@ -30,7 +30,6 @@ class DioApiService implements BaseApiServices {
   /// GET request
   @override
   Future<dynamic> getApi(String url) async {
-    if (kDebugMode) print("🌐 [GET] => $url");
     try {
       final response = await _dio.get(url);
       return _handleResponse(response);
