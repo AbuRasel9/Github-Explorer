@@ -124,111 +124,77 @@ class AppThemeData {
 // --------------------------------------
   static final darkThemeData = ThemeData(
     useMaterial3: true,
-    scaffoldBackgroundColor: Colors.black45,
-    cardTheme: CardThemeData(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(9),
-      ),
-      color: AppColorSchemes.darkColorScheme.surface,
-      margin: EdgeInsets.zero,
-    ),
+    brightness: Brightness.dark,
+    scaffoldBackgroundColor: Colors.black,
     colorScheme: AppColorSchemes.darkColorScheme,
     textTheme: AppTextThemes.darkTextTheme,
     visualDensity: VisualDensity.adaptivePlatformDensity,
+
     appBarTheme: AppBarTheme(
-      backgroundColor: CupertinoColors.systemGrey6,
-      foregroundColor: CupertinoColors.systemGrey6,
+      backgroundColor: Colors.black,
+      foregroundColor: Colors.white,
       elevation: 0,
       titleTextStyle: AppTextThemes.darkTextTheme.titleLarge
-          ?.copyWith(/*color: AppColorSchemes.lightColorScheme.onPrimary*/),
-      shape: const LinearBorder(),
-      iconTheme: IconThemeData(
-        color: AppColorSchemes.darkColorScheme.onPrimary,
-      ),
+          ?.copyWith(color: Colors.white),
+      iconTheme: IconThemeData(color: Colors.white),
     ),
+
+    cardTheme: CardThemeData(
+      color: const Color(0xFF1A1A1A),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(9)),
+      margin: EdgeInsets.zero,
+      elevation: 2,
+    ),
+
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ButtonStyle(
-        elevation: const WidgetStatePropertyAll(1),
-        padding: const WidgetStatePropertyAll(
-          EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-        ),
-        shape: WidgetStatePropertyAll(
-          RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(9),
-          ),
-        ),
         backgroundColor: WidgetStateProperty.resolveWith(
-          (states) {
-            return states.contains(WidgetState.disabled)
-                ? AppColorSchemes.darkColorScheme.outline.withOpacity(0.5)
-                : AppColorSchemes.darkColorScheme.primary;
-          },
+              (states) => states.contains(WidgetState.disabled)
+              ? Colors.grey.shade700
+              : AppColorSchemes.darkColorScheme.primary,
         ),
-        foregroundColor: WidgetStatePropertyAll(AppColorSchemes.darkColorScheme.onPrimary),
-        shadowColor: const WidgetStatePropertyAll(Colors.transparent),
+        foregroundColor:
+        WidgetStatePropertyAll(AppColorSchemes.darkColorScheme.onPrimary),
+        shape: WidgetStatePropertyAll(
+          RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
+        ),
         textStyle: WidgetStatePropertyAll(
           AppTextThemes.darkTextTheme.titleMedium
-              ?.copyWith(color: AppColorSchemes.darkColorScheme.onPrimary),
-        ),
-        overlayColor: WidgetStateProperty.resolveWith(
-          (states) {
-            return states.contains(WidgetState.pressed)
-                ? AppColorSchemes.darkColorScheme.tertiary.withOpacity(0.2)
-                : null;
-          },
+              ?.copyWith(color: Colors.white),
         ),
       ),
     ),
+
     inputDecorationTheme: InputDecorationTheme(
       isDense: true,
-      hintStyle: AppTextThemes.darkTextTheme.bodyMedium?.copyWith(
-        color: AppColorSchemes.darkColorScheme.outline.withOpacity(0.7),
-      ),
-      errorStyle: AppTextThemes.darkTextTheme.labelMedium?.copyWith(
-        color: AppColorSchemes.darkColorScheme.error,
+      filled: true,
+      fillColor: const Color(0xFF1E1E1E),
+      hintStyle: TextStyle(
+        color: AppColorSchemes.darkColorScheme.outline.withOpacity(0.6),
       ),
       border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(7),
-        borderSide: BorderSide(
-          color: AppColorSchemes.darkColorScheme.outline.withOpacity(0.7),
-        ),
+        borderRadius: BorderRadius.circular(10),
+        borderSide:
+        BorderSide(color: AppColorSchemes.darkColorScheme.outline),
       ),
       enabledBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(7),
-        borderSide: BorderSide(
-          color: AppColorSchemes.darkColorScheme.outline.withOpacity(0.7),
-        ),
-      ),
-      disabledBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(7),
-        borderSide: BorderSide(color: AppColorSchemes.darkColorScheme.outline.withOpacity(0.7)),
+        borderRadius: BorderRadius.circular(10),
+        borderSide:
+        BorderSide(color: AppColorSchemes.darkColorScheme.outline),
       ),
       focusedBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(7),
-        borderSide: BorderSide(color: AppColorSchemes.darkColorScheme.primary),
+        borderRadius: BorderRadius.circular(10),
+        borderSide:
+        BorderSide(color: AppColorSchemes.darkColorScheme.primary),
       ),
       errorBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(7),
-        borderSide: BorderSide(color: AppColorSchemes.darkColorScheme.error),
-      ),
-      contentPadding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-      labelStyle: AppTextThemes.darkTextTheme.bodyMedium?.copyWith(
-        color: AppColorSchemes.darkColorScheme.outline.withOpacity(0.7),
-      ),
-      prefixIconColor: WidgetStateColor.resolveWith(
-            (states) {
-          return states.contains(WidgetState.focused)
-              ? AppColorSchemes.lightColorScheme.onSurface
-              : AppColorSchemes.lightColorScheme.outline.withOpacity(0.7);
-        },
-      ),
-      suffixIconColor: WidgetStateColor.resolveWith(
-            (states) {
-          return states.contains(WidgetState.focused)
-              ? AppColorSchemes.lightColorScheme.onSurface
-              : AppColorSchemes.lightColorScheme.outline.withOpacity(0.7);
-        },
+        borderRadius: BorderRadius.circular(10),
+        borderSide:
+        BorderSide(color: AppColorSchemes.darkColorScheme.error),
       ),
     ),
+
+    iconTheme: const IconThemeData(color: Colors.white70),
   );
 }
+

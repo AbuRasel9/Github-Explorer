@@ -85,6 +85,7 @@ class HomeView extends StatelessWidget {
                   ),
                   subtitle: Text(user.bio ?? 'No bio available'),
                 ),
+                Divider(color: theme.colorScheme.onSurface,),
                 Padding(
                   padding: const EdgeInsets.all(12.0),
                   child: Text(
