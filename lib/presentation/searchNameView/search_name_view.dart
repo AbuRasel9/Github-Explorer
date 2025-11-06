@@ -26,11 +26,13 @@ class _SearchNameViewState extends State<SearchNameView> {
         child: Form(
           key: _formKey,
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
                 "Enter Github User for search github user ",
                 style: theme.textTheme.bodyLarge,
               ),
+              SizedBox(height: 15),
               TextFormField(
                 controller: _controller,
                 validator: (value) {
@@ -43,7 +45,7 @@ class _SearchNameViewState extends State<SearchNameView> {
                   labelText: "Enter Github user name",
                 ),
               ),
-              SizedBox(height: 10,),
+              SizedBox(height: 10),
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(

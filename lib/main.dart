@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'configs/routes/routes_manager.dart';
 import 'configs/routes/routes_name.dart';
 import 'configs/theme/app_theme_data.dart';
+import 'controller/theme_controller.dart';
 void main()async {
 
 
@@ -15,15 +16,17 @@ class MyApp extends StatelessWidget {
   const MyApp({super.key});
   @override
   Widget build(BuildContext context) {
-    return  GetMaterialApp(
+    final themeController = Get.put(ThemeController()); // initialize GetX controller
+
+    return  Obx(() => GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      themeMode: ThemeMode.light, // Setting theme mode to dark
+      themeMode: themeController.themeMode, // Setting theme mode to dark
       theme: AppThemeData.lightThemeData, // Setting light theme
       darkTheme: AppThemeData.darkThemeData, // Setting dark theme      title: 'task',
 
       initialRoute: RoutesName.searchNameView,//initial route
       getPages: RouteManager.routes,
-    );
+    ));
   }
 }
 

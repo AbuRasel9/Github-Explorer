@@ -5,6 +5,7 @@ import '../RepoDetailsView/repo_details_view.dart';
 
 class HomeView extends StatelessWidget {
   final String username;
+
   HomeView({super.key, required this.username});
 
   final controller = Get.put(GithubController());
@@ -16,7 +17,7 @@ class HomeView extends StatelessWidget {
   Widget build(BuildContext context) {
     controller.fetchUserData(username);
     controller.fetchRepos(username);
-    final theme=context.theme;
+    final theme = context.theme;
 
     return Scaffold(
       appBar: AppBar(
@@ -61,76 +62,105 @@ class HomeView extends StatelessWidget {
           child: SingleChildScrollView(
             physics: const AlwaysScrollableScrollPhysics(),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 ListTile(
                   leading: CircleAvatar(
                     backgroundImage: NetworkImage(user.avatarUrl ?? ''),
                     radius: 30,
                   ),
-                  title: Text(user.name ?? username,style: theme.textTheme.titleMedium),
+                  title: Text(
+                    user.name ?? username,
+                    style: theme.textTheme.titleMedium,
+                  ),
                   subtitle: Text(user.bio ?? 'No bio available'),
                 ),
-                Text("Repository List",style: theme.textTheme.bodyLarge,),
-                Obx(() => isGrid.value
-                    ? GridView.builder(
-                  padding: const EdgeInsets.all(8),
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: repos.length,
-                  gridDelegate:
-                  const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2, childAspectRatio: 1.3),
-                  itemBuilder: (context, index) {
-                    final repo = repos[index];
-                    return GestureDetector(
-                      onTap: () => Get.to(() => RepoDetailsView(repo: repo)),
-                      child: Card(
-                        margin: EdgeInsets.only(right: 8,top: 8,),
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(repo.name ?? '',
-                                  style: theme.textTheme.bodyLarge,),
-                              const SizedBox(height: 5),
-                              Text(repo.language ?? 'Unknown'),
-                              const Spacer(),
-                              Row(
+                Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: Text(
+                    "Repository List",
+                    style: theme.textTheme.bodyLarge?.copyWith(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                Obx(
+                  () => isGrid.value
+                      ? GridView.builder(
+                          padding: const EdgeInsets.all(8),
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount: repos.length,
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2,
+                                childAspectRatio: 1.3,
+                              ),
+                          itemBuilder: (context, index) {
+                            final repo = repos[index];
+                            return GestureDetector(
+                              onTap: () =>
+                                  Get.to(() => RepoDetailsView(repo: repo)),
+                              child: Card(
+                                margin: EdgeInsets.only(right: 8, top: 8),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        repo.name ?? '',
+                                        style: theme.textTheme.bodyLarge,
+                                      ),
+                                      const SizedBox(height: 5),
+                                      Text(repo.language ?? 'Unknown'),
+                                      const Spacer(),
+                                      Row(
+                                        children: [
+                                          const Icon(
+                                            Icons.star,
+                                            color: Colors.amber,
+                                            size: 16,
+                                          ),
+                                          Text(' ${repo.stargazersCount}'),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            );
+                          },
+                        )
+                      : ListView.builder(
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          itemCount: repos.length,
+                          itemBuilder: (context, index) {
+                            final repo = repos[index];
+                            return ListTile(
+                              title: Text(repo.name ?? ''),
+                              subtitle: Text(
+                                repo.description ?? 'No description',
+                              ),
+                              trailing: Row(
+                                mainAxisSize: MainAxisSize.min,
                                 children: [
-                                  const Icon(Icons.star,
-                                      color: Colors.amber, size: 16),
+                                  const Icon(
+                                    Icons.star,
+                                    color: Colors.amber,
+                                    size: 16,
+                                  ),
                                   Text(' ${repo.stargazersCount}'),
                                 ],
                               ),
-                            ],
-                          ),
+                              onTap: () =>
+                                  Get.to(() => RepoDetailsView(repo: repo)),
+                            );
+                          },
                         ),
-                      ),
-                    );
-                  },
-                )
-                    : ListView.builder(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: repos.length,
-                  itemBuilder: (context, index) {
-                    final repo = repos[index];
-                    return ListTile(
-                      title: Text(repo.name ?? ''),
-                      subtitle: Text(repo.description ?? 'No description'),
-                      trailing: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          const Icon(Icons.star,
-                              color: Colors.amber, size: 16),
-                          Text(' ${repo.stargazersCount}'),
-                        ],
-                      ),
-                      onTap: () => Get.to(() => RepoDetailsView(repo: repo)),
-                    );
-                  },
-                )),
+                ),
               ],
             ),
           ),
