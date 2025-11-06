@@ -7,8 +7,14 @@ import 'package:github_explorer/presentation/searchNameView/search_name_view.dar
 class RouteManager {
   static final routes=[
     GetPage(name: RoutesName.searchNameView, page: () => SearchNameView(),),
-    GetPage(name: RoutesName.home, page: () => HomeView(),),
-    GetPage(name: RoutesName.repoDetails, page: () => RepoDetailsView(),),
+    GetPage(
+      name: RoutesName.home,
+      page: () {
+        final args = Get.arguments as Map<String, dynamic>?;
+        final userName = args?['userName'] ?? '';
+        return HomeView(userName: userName);
+      },
+    ),    GetPage(name: RoutesName.repoDetails, page: () => RepoDetailsView(),),
   ];
 
 }
