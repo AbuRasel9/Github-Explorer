@@ -16,6 +16,7 @@ class HomeView extends StatelessWidget {
   Widget build(BuildContext context) {
     controller.fetchUserData(username);
     controller.fetchRepos(username);
+    final theme=context.theme;
 
     return Scaffold(
       appBar: AppBar(
@@ -66,10 +67,10 @@ class HomeView extends StatelessWidget {
                     backgroundImage: NetworkImage(user.avatarUrl ?? ''),
                     radius: 30,
                   ),
-                  title: Text(user.name ?? username),
+                  title: Text(user.name ?? username,style: theme.textTheme.titleMedium),
                   subtitle: Text(user.bio ?? 'No bio available'),
                 ),
-                const Divider(),
+                Text("Repository List",style: theme.textTheme.bodyLarge,),
                 Obx(() => isGrid.value
                     ? GridView.builder(
                   padding: const EdgeInsets.all(8),
@@ -84,14 +85,14 @@ class HomeView extends StatelessWidget {
                     return GestureDetector(
                       onTap: () => Get.to(() => RepoDetailsView(repo: repo)),
                       child: Card(
+                        margin: EdgeInsets.only(right: 8,top: 8,),
                         child: Padding(
                           padding: const EdgeInsets.all(8.0),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(repo.name ?? '',
-                                  style: const TextStyle(
-                                      fontWeight: FontWeight.bold)),
+                                  style: theme.textTheme.bodyLarge,),
                               const SizedBox(height: 5),
                               Text(repo.language ?? 'Unknown'),
                               const Spacer(),
