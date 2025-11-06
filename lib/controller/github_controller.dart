@@ -38,4 +38,26 @@ class GithubController extends GetxController {
       isLoading(false);
     }
   }
+  // Sort repo list
+  void sortRepos(String criteria) {
+    switch (criteria) {
+      case 'name':
+        repos.sort((a, b) => (a.name ?? '').compareTo(b.name ?? ''));
+        break;
+
+      case 'star':
+        repos.sort((b, a) => (a.stargazersCount ?? 0).compareTo(b.stargazersCount ?? 0));
+        break;
+
+      case 'date':
+        repos.sort((b, a) {
+          final dateA = DateTime.tryParse(a.createdAt?.toString() ?? '') ?? DateTime(1970);
+          final dateB = DateTime.tryParse(b.createdAt?.toString() ?? '') ?? DateTime(1970);
+          return dateA.compareTo(dateB);
+        });
+        break;
+    }
+  }
+
+
 }
