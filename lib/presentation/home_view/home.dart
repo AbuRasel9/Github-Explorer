@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../controller/github_controller.dart';
+import '../../controller/theme_controller.dart';
 import '../RepoDetailsView/repo_details_view.dart';
 
 class HomeView extends StatelessWidget {
@@ -9,6 +10,7 @@ class HomeView extends StatelessWidget {
   HomeView({super.key, required this.username});
 
   final controller = Get.put(GithubController());
+  final themeController = Get.find<ThemeController>();
 
   final RxBool isGrid = false.obs;
   final RxString filter = 'name'.obs;
@@ -27,6 +29,14 @@ class HomeView extends StatelessWidget {
             icon: Obx(() => Icon(isGrid.value ? Icons.list : Icons.grid_view)),
             onPressed: () => isGrid.toggle(),
           ),
+          IconButton(
+            icon: Obx(() => Icon(
+              themeController.isDark ? Icons.wb_sunny : Icons.nightlight_round,
+              color: Colors.white,
+            )),
+            onPressed: themeController.toggleTheme,
+          ),
+
           PopupMenuButton<String>(
             onSelected: (value) {
               filter.value = value;
